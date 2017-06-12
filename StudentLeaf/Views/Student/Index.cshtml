@@ -30,7 +30,7 @@
     <div class="container">
   
         <!-- Trigger the modal with a button -->
-        <button type="button"id="modalBtn" hidden="true"></button>
+        <button type="button" id="modalBtn" hidden></button>
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -68,14 +68,14 @@
        table = $('#studentTable').DataTable({
             ajax: {
                 url: "/student/list",
-                dataSrc: "",
+                dataSrc: ""
             },
             columns: [
                 {
                     name: "id-Column",
                     data: "Name",
                     render: function (data, type, student) {
-                        return "<a class='wtf' data-id="+student.Id+" id='editref' href='/student/edit/" + student.Id + "'>" + student.Name + "</a>";
+                        return "<a data-id="+student.Id+" id='editref' href='/student/edit/" + student.Id + "'>" + student.Name + "</a>";
                     }
                 },
                 {
@@ -87,7 +87,7 @@
                                 return lessons += "<option data-id="+ value.Id +" value=''>" + value.LessonPlan + "</option>";
                         });
                        
-                        return "<select id='dropDown' class='form-control'><option>-Select Lesson-</option>" + lessons + "</select>";
+                        return "<select id='dropDown' class='form-control'><option selected='selected'>-Select Lesson-</option>" + lessons + "</select>";
                     }
                 },
                 {
@@ -114,23 +114,32 @@
         $(this).change(function () {
             //Finds the selected "option" in the dropdown and stores its data-id value in "aId"
             aId = $(this).find("option:selected").data("id");
-            //(1)-->    //called when the "change" function is called -> invokes the click event for the targeted element -> 
             getStudent(resultData, sId);
             getLesson(gStudent, aId);
             editModal(gStudent, gLesson);
-            $('#modalBtn').click();           
-            });
+            //(1)-->    //called when the "change" function is called -> invokes the click event for the targeted element -> 
+            $('#modalBtn').click();
+            $('#dropDown option').prop('selected',
+                function() {
+                    return this.defaultSelected;
+                });
+        });
         });
 
-//(1)--> //called from above function on line -117-  
+//(1)--> //called from above function on line -120-  
     $("#modalBtn").click(function () {
          //Calls the "modal" function on the modal div
         $("#myModal").modal("toggle", { backdrop: true });
     });
+
+
+
     function editModal(student, lesson) {
         $('#mHeader').html(student.Name);
-        $('mBody').append()
+        $('mBody').append();
     };
+
+
     function getStudent(jsonObj,studentId) {
         $.each(jsonObj,
             function (index, findStudent) {
@@ -146,6 +155,7 @@
                    if (findLesson.Id === lessonId) { gLesson = findLesson; };
                });
     };
+
     /*function DataHandler() {
 
         this.student =

@@ -1,0 +1,174 @@
+﻿@model List<StudentLeaf.Models.Student>
+@{
+    ViewBag.Title = "Index";
+}
+
+<head>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+</head>
+<h2>Students</h2>
+<body>
+<div class="form-horizontal">
+    <table class="table table-hover" id="studentTable">
+        <thead>
+            <tr>
+                <th> Student Name </th>
+                <th> Active Lessons</th>
+                <th> Delete </th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+          
+        </tbody>
+      </table>
+
+    <div id="modal" class="container">
+    </div>
+  
+    
+</div>
+    <div class="container">
+  
+        <!-- Trigger the modal with a button -->
+        <button type="button"id="modalBtn" hidden="true"></button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 id="mHeader" class="modal-title">Header Element</h4>
+                    </div>
+                    <div id="mBody" class="modal-body">
+                       
+                    </div>
+                    <div id="mFooter" class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+ </body>
+
+@section scripts{
+<script>
+    var sId, aId, resultData, gStudent, gLesson;
+
+    $(document).ready(function () {
+        $.getJSON("/student/list", function (result) {
+            resultData = result;
+        });
+
+       table = $('#studentTable').DataTable({
+            ajax: {
+                url: "/student/list",
+                dataSrc: "",
+            },
+            columns: [
+                {
+                    name: "id-Column",
+                    data: "Name",
+                    render: function (data, type, student) {
+                        return "<a class='wtf' data-id="+student.Id+" id='editref' href='/student/edit/" + student.Id + "'>" + student.Name + "</a>";
+                    }
+                },
+                {
+                    data: "ActiveLessons",
+                    render: function (data) {
+                        var lessons;
+                        $.each(data,
+                            function (index, value) {
+                                return lessons += "<option data-id="+ value.Id +" value=''>" + value.LessonPlan + "</option>";
+                        });
+                       
+                        return "<select id='dropDown' class='form-control'><option>-Select Lesson-</option>" + lessons + "</select>";
+                    }
+                },
+                {
+                    "data": "id",
+                    render: function (data) {
+                        return "<button class='btn-link js-delete' data-id=" + data + ">Delete</button>";
+                    }
+                }
+            ]
+       });
+       
+    });
+    
+    
+    //Targets the tbody and binds "hover" event listener to the selected "tr"
+    $("#tableBody").on("mouseenter", "tr", function () {
+        //Finds the "a" element in the tr and stores its data value in "sId"
+        sId = $(this).find('a').data("id");
+    });
+    
+    //Targets the tbody and binds "click" event to the dropdown which calls another function ->
+    $("#tableBody").on("click", "select", function () {
+        //called when "select" is clicked -> this function when the "selected" value is changed
+        $(this).change(function () {
+            //Finds the selected "option" in the dropdown and stores its data-id value in "aId"
+            aId = $(this).find("option:selected").data("id");
+            //(1)-->    //called when the "change" function is called -> invokes the click event for the targeted element -> 
+            getStudent(resultData, sId);
+            getLesson(gStudent, aId);
+            editModal(gStudent, gLesson);
+            $('#modalBtn').click();           
+            });
+        });
+
+//(1)--> //called from above function on line -117-  
+    $("#modalBtn").click(function () {
+         //Calls the "modal" function on the modal div
+        $("#myModal").modal("toggle", { backdrop: true });
+    });
+    function editModal(student, lesson) {
+        $('#mHeader').html(student.Name);
+        $('mBody').append()
+    };
+    function getStudent(jsonObj,studentId) {
+        $.each(jsonObj,
+            function (index, findStudent) {
+            //Assigns that student object to "student"
+            if (findStudent.Id === studentId) {  gStudent = findStudent; };
+        });
+    }
+    function getLesson(studentObj, lessonId) {
+        $.each(studentObj.ActiveLessons,
+               function (index, findLesson) {
+                   ///TODO///account for aId = 'Select Lesson Value' or 'Null'
+                   //Assigns that lesson object to "lesson"
+                   if (findLesson.Id === lessonId) { gLesson = findLesson; };
+               });
+    };
+    /*function DataHandler() {
+
+        this.student =
+        this.getStudent = function (jsonObj, studentId) {
+            $.each(jsonObj, function (index, findStudent) {
+                //Assigns that student object to "student"
+                if (findStudent.Id === sId) { var student = findStudent; };
+                console.log(student);
+                return student;
+            });
+
+        },
+        this.getLesson = function (jsonObj, lessonId) {
+            $.each(jsonObj.ActiveLessons,
+                   function (index, findLesson) {
+                       ///TODO///account for aId = 'Select Lesson Value' or 'Null'
+                       //Assigns that lesson object to "lesson"
+                       if (findLesson.Id === lessonId) { var lesson = findLesson; };
+                       return lesson;
+                   });
+        }
+    };*/
+    
+
+</script>
+}

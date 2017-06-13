@@ -39,8 +39,15 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 id="mHeader" class="modal-title">Header Element</h4>
+                      
+                      
+                        <h4 id="mHeader" class="panel panel-primary"></h4>
+                        <div class="jumbotron">
+                            <p id="lessionDetail"></p>
+                            <p id="sellInstructor"></p>
+                        </div>
+                        
+                        
                     </div>
                     <div id="mBody" class="modal-body">
                        
@@ -136,6 +143,9 @@
 
     function editModal(student, lesson) {
         $('#mHeader').html(student.Name);
+        console.log(student);
+        $('#lessionDetail').html(lesson.Style);
+        $('#sellInstructor').html(lesson.SInstructor);
         $('mBody').append();
     };
 

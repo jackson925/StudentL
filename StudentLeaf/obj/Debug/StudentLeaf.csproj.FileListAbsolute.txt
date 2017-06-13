@@ -83,10 +83,14 @@ C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\bin\Microsoft.Owin.Se
 C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.csprojResolveAssemblyReference.cache
 C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.Migrations.AddStudenttablesanddependencies.resources
 C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.Migrations.AddDummyStudents.resources
 C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.Migrations.UpdateTables.resources
 C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.csproj.GenerateResource.Cache
 C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.dll
 C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.pdb
+C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.csprojResolveAssemblyReference.cache
+C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.Migrations.RemoveInstructorID.resources
+C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.Migrations.AddInstructorModels.resources
+C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.Migrations.AddInstructorModels1.resources
+C:\Users\EK_SP4\Desktop\MSSA\Projects\StudentL\StudentLeaf\obj\Debug\StudentLeaf.Migrations.AddInstructorIDtoSessionRecord.resources

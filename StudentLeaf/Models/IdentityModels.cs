@@ -1,9 +1,8 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using StudentLeaf.Models;
 
 namespace StudentLeaf.Models
 {
@@ -24,6 +23,8 @@ namespace StudentLeaf.Models
         public DbSet<Student> Student { get; set; }
         public DbSet<ActiveLesson> ActiveLessons { get; set; }
         public DbSet<SessonRecord> SessonRecord { get; set; }
+        public DbSet<Instructor> Instructor { get; set; }
+
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

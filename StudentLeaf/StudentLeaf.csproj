@@ -228,10 +228,27 @@
     <Compile Include="Migrations\201705191408226_Update Tables.Designer.cs">
       <DependentUpon>201705191408226_Update Tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706131341098_RemoveInstructorID.cs" />
+    <Compile Include="Migrations\201706131341098_RemoveInstructorID.Designer.cs">
+      <DependentUpon>201706131341098_RemoveInstructorID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706131343177_AddInstructorModels.cs" />
+    <Compile Include="Migrations\201706131343177_AddInstructorModels.Designer.cs">
+      <DependentUpon>201706131343177_AddInstructorModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706131348510_AddInstructorModels1.cs" />
+    <Compile Include="Migrations\201706131348510_AddInstructorModels1.Designer.cs">
+      <DependentUpon>201706131348510_AddInstructorModels1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706131350471_AddInstructorIDtoSessionRecord.cs" />
+    <Compile Include="Migrations\201706131350471_AddInstructorIDtoSessionRecord.Designer.cs">
+      <DependentUpon>201706131350471_AddInstructorIDtoSessionRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActiveLesson.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Instructor.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SessonRecord.cs" />
     <Compile Include="Models\Student.cs" />
@@ -493,6 +510,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705191408226_Update Tables.resx">
       <DependentUpon>201705191408226_Update Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706131341098_RemoveInstructorID.resx">
+      <DependentUpon>201706131341098_RemoveInstructorID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706131343177_AddInstructorModels.resx">
+      <DependentUpon>201706131343177_AddInstructorModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706131348510_AddInstructorModels1.resx">
+      <DependentUpon>201706131348510_AddInstructorModels1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706131350471_AddInstructorIDtoSessionRecord.resx">
+      <DependentUpon>201706131350471_AddInstructorIDtoSessionRecord.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

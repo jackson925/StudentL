@@ -25,3 +25,8 @@ textarea {
 .jumbotron {
     background-color: azure;
 }
+#modalInside {
+    -webkit-box-shadow: -4px 3px 24px 1px rgba(92,46,92,1);
+    -moz-box-shadow: -4px 3px 24px 1px rgba(92,46,92,1);
+    box-shadow: -4px 3px 24px 1px rgba(92,46,92,1);
+}

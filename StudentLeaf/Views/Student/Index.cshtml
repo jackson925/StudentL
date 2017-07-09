@@ -221,6 +221,18 @@
                 
         });
     }
+    function createHistoryTable(history) {
+        var historyArr = new Array;
+        $.each(history, function (index, record) {
+            var rawDate = record.DTG;
+            var value = new Date
+                ( parseInt(rawDate.replace(/(^.*\()|([+-].*$)/g, '')));
+            var date = value.getMonth() + 1 + "/" + value.getDate() + "/" + value.getFullYear();
+            var tempTr = "<tr><td>" + date + "</td><td>" + record.InstructorId + "</td><td>" + record.Length + "</td></tr>" 
+            historyArr += tempTr.replace("undefined", "");
+        });
+        return historyArr;
+    }
     function getLesson(studentObj, lessonId) {
         $.each(studentObj.ActiveLessons,
                function (index, findLesson) {
@@ -232,10 +244,18 @@
     function createCarousel(student, lesson) {
         $('#inCarousel').empty();
         $('#inCarousel').append(insideModal);
+        var history = createHistoryTable(gHistory);
+        var h = lesson.Hours;
+        var b = lesson.BaselineHours;
+        var p = (h / b) * 100;
+        var e = p.toFixed();
+
+        var progress = "<div class='progress'> <div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width:" + p + "%'> " + h +" out of "+ b +" hours completed. </div> </div>"
+        
         var insideModal =
  //       '<div class="item active">' +
             '<div class="container">' +
-                '<div class="row col-sm-12 well">' +
+            '<div class="row col-sm-12 well" id="modalInside" style="margin-left:1px; margin-top:10px; -webkit-box-shadow: -4px 3px 24px 1px rgba(95,113,230,1); - moz - box - shadow: -4px 3px 24px 1px rgba(95, 113, 230, 1); box - shadow: -4px 3px 24px 1px rgba(95, 113, 230, 1);">' +
                 //left part of the table
                     '<div class="col-sm-6 well" style="height:248px">' +
                         '<table class="table">' +
@@ -246,15 +266,15 @@
                             '</thead>' +
                             '<tbody>' +
                                 '<tr>' +
-                                    '<td>Lesson Type</td>' +
+                                    '<td style="color:blue;">Lesson Type:</td>' +
                                     '<td>' + lesson.LessonPlan + '</td>'+
                                 '</tr>' +
                                 '<tr>' +
-                                    '<td>Selling Instructor</td>' +
+                                    '<td style="color:blue;">Selling Instructor:</td>' +
                                     '<td>' + lesson.SInstructor + '</td>' +
                                 '</tr>' +
                                 '<tr>' +
-                                '<td>Style</td>' +
+                                '<td style="color:blue;">Style:</td>' +
                                 '<td>' + lesson.Style + '</td>' +
                                 '</tr>' +
                             '</tbody>' +
@@ -266,34 +286,16 @@
                         '<table class="table" id="historyTable">' +
                             '<thead>' +
                                 '<tr>' +
-                                    '<th>DTG</th>' +
-                                    '<th>Instructor</th>' +
-                                    '<th>Hours</th>' +
+                                   '<th style="color:blue;">Date</th>' +
+                                   '<th style="color:blue;">Instructor</th>' +
+                                   '<th style="color:blue;">Hours</th>' +
                                 '</tr>' +
                             '</thead>' +
                             '<tbody>' +
-                                '<tr>' +
-                                    '<td>June 2, 2017</td>' +
-                                    '<td>Steve</td>' +
-                                    '<td>5 Hours</td>' +
-                                '</tr>' +
-                                '<tr>' +
-                                    '<td>June 4, 2017</td>' +
-                                    '<td>Steve</td>' +
-                                    '<td>5 Hours</td>' +
-                                '</tr>' +
-                                '<tr>' +
-                                    '<td>June 5, 2017</td>' +
-                                    '<td>Steve</td>' +
-                                    '<td>5 Hours</td>' +
-                                '</tr>' +
+                                history +
                             '</tbody>' +
                             '</table>' +
-                            '<div class="progress">' +
-                            '<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:60%">' +
-                            'Hours used out of X' +
-                            '</div>' +
-                            '</div>' +
+                            progress +
                       '</div>' +
                     '</div>' +
                 '</div>' +
@@ -302,12 +304,6 @@
 
     }
 
-    var lessonModal = {
-        nextLesson: null,
-        currLesson: null,
-        prevLesson: null,
-        i: 0,
-    }
 
 </script>
 }

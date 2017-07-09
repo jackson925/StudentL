@@ -22,5 +22,7 @@ namespace StudentLeaf.Models
         public string SInstructor { get; set; }
         [Required]
         public int Id { get; set; }
+        [Required]
+        public int BaselineHours { get; set; }
     }
 }

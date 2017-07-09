@@ -2,10 +2,11 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <head>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
 </head>
+
 <h2>Students</h2>
 <body>
     <div class="form-horizontal">
@@ -59,11 +60,11 @@
 
                         <div id="mFooter" class="modal-footer">
                             <!-- Left and right controls -->
-                            <a class="left pull-left" href="#myCarousel" data-slide="prev">
+                            <a class="left pull-left" id="leftBtn">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
                                 <span class="sr-only">Previous</span>
                             </a>
-                            <a style="" class="right" href="#myCarousel" data-slide="next">
+                            <a style="" class="right" id="rightBtn">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                                 <span class="sr-only">Next</span>
                             </a>
@@ -80,7 +81,7 @@
 
 @section scripts{
 <script>
-    var sId, aId, resultData, gStudent, gLesson;
+    var sId, aId, resultData, gStudent, gLesson, currLesson, gHistory; 
 
     $(document).ready(function () {
         $.getJSON("/student/list", function (result) {
@@ -138,7 +139,10 @@
             aId = $(this).find("option:selected").data("id");
             getStudent(resultData, sId);
             getLesson(gStudent, aId);
+            getHistory(gStudent);
             editModal(gStudent, gLesson);
+
+            currLesson = gLesson;
             //(1)-->    //called when the "change" function is called -> invokes the click event for the targeted element -> 
             $('#modalBtn').click();
             $('#dropDown option').prop('selected',
@@ -153,28 +157,68 @@
          //Calls the "modal" function on the modal div
         $("#myModal").modal("toggle", { backdrop: true });
     });
-
-
-
     function editModal(student, lesson) {
         $('#mHeader').html(student.Name);
-
-
-        //this is where Modal and carousel is going to be in //
+        //this is where Modal and carousel is going to be in
         //call the function for modal 
-
         createCarousel(student, lesson);
-
-        //this is where Modal and carousel is going to be in //
-
+        //gLesson = lesson;
+        //this is where Modal and carousel is going to be in 
     };
-
-
+    $('#leftBtn').click(function () {
+        var prevLesson;
+        var lessons = gStudent.ActiveLessons;
+        var n = lessons.indexOf(currLesson);
+        var y = lessons.length;
+        var x = lessons.length - 1;
+        if (n == 0) {
+            console.log("There are no previous lessons in the array");
+        }
+        else if (n == x && lessons.length <= 1)
+        {
+            console.log('There is only one lesson in the array');
+        } else if (n == x) {
+            prevLesson = lessons[n - 1];
+            currLesson = prevLesson;
+            createCarousel(gStudent, currLesson);
+        } else if (n > (x-y))
+        {
+            prevLesson = lessons[n - 1];
+            currLesson = prevLesson;
+            createCarousel(gStudent, currLesson);
+        }
+        
+    });
+    $('#rightBtn').click(function () {
+        var nextLesson;
+        var lessons = gStudent.ActiveLessons;
+        var n = lessons.indexOf(currLesson);
+        var x = lessons.length - 1;
+        if (n == x)
+        {
+            console.log('blah');
+        }
+        else if (lessons.length <= 1)
+        {
+            console.log('Only one Active Lesson.');
+        }
+        else if (lessons.length > 1) {
+            var i = lessons.indexOf(currLesson);
+            nextLesson = lessons[i + 1];
+            currLesson = nextLesson;
+            createCarousel(gStudent, nextLesson);
+        }
+    });
+    function getHistory(student) {
+        gHistory = student.History;
+        console.log(gHistory);
+    }
     function getStudent(jsonObj,studentId) {
         $.each(jsonObj,
             function (index, findStudent) {
-            //Assigns that student object to "student"
-            if (findStudent.Id === studentId) {  gStudent = findStudent; };
+              //Assigns that student object to "student"
+                if (findStudent.Id === studentId) { gStudent = findStudent;};
+                
         });
     }
     function getLesson(studentObj, lessonId) {
@@ -185,26 +229,19 @@
                    if (findLesson.Id === lessonId) { gLesson = findLesson; };
                });
     };
-
     function createCarousel(student, lesson) {
-        console.log(student);
-        console.log(lesson);
         $('#inCarousel').empty();
-
         $('#inCarousel').append(insideModal);
-
-
         var insideModal =
  //       '<div class="item active">' +
             '<div class="container">' +
                 '<div class="row col-sm-12 well">' +
                 //left part of the table
-                    '<div class="col-sm-6 well">' +
+                    '<div class="col-sm-6 well" style="height:248px">' +
                         '<table class="table">' +
                             '<thead>' +
                                 '<tr>' +
-                                    '<th>---1ST---</th>' +
-                                    '<th>---2ND---</th>' +
+                                    '<th>Active Lesson</th>' +
                                 '</tr>' +
                             '</thead>' +
                             '<tbody>' +
@@ -226,12 +263,7 @@
 
                     //right part of the table (history)
                     '<div class="col-sm-6 well">' +
-                        '<div class="progress">' +
-                          '<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:60%">' +
-                            'Hours used out of X' +
-                          '</div>' +
-                        '</div>' +
-                        '<table class="table">' +
+                        '<table class="table" id="historyTable">' +
                             '<thead>' +
                                 '<tr>' +
                                     '<th>DTG</th>' +
@@ -256,15 +288,26 @@
                                     '<td>5 Hours</td>' +
                                 '</tr>' +
                             '</tbody>' +
-                        '</table>' +
+                            '</table>' +
+                            '<div class="progress">' +
+                            '<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:60%">' +
+                            'Hours used out of X' +
+                            '</div>' +
+                            '</div>' +
                       '</div>' +
                     '</div>' +
                 '</div>' +
             '</div>';
-        
         $('#inCarousel').append(insideModal);
 
     }
-    
+
+    var lessonModal = {
+        nextLesson: null,
+        currLesson: null,
+        prevLesson: null,
+        i: 0,
+    }
+
 </script>
 }

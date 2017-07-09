@@ -10,7 +10,7 @@ namespace StudentLeaf
         {
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
-                         "~/Scripts/bootstrap.js",
+                         "~/Scripts/Bootstrap/bootstrap.js",
                          "~/Scripts/respond.js",
                          "~/Scripts/datatables/jquery.datatables.js",
                          "~/Scripts/datatables/datatables.bootstrap.js"
@@ -25,7 +25,7 @@ namespace StudentLeaf
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/Bootstrap/bootstrap.css",
                       "~/Content/datatables/css/datatables.bootstrap.css",
                       "~/Content/site.css"
                       ));

@@ -17,6 +17,8 @@ namespace StudentLeaf.Models
         public int SInstructorId { get; set; }
         [Required]
         public int Id { get; set; }
+        [Required]
+        public int Length { get; set; }
 
     }
 }
